@@ -11,7 +11,6 @@ module.exports = (env, options) => {
   const config = {
     mode: isProduction ? "production" : "development",
     devtool: isProduction ? "none" : "source-map",
-    //  entry: ['./src/index.js', './src/sass/style.scss'],
     entry: ["./src/index.js"],
     output: {
       path: path.join(__dirname, "./dist"),
@@ -28,15 +27,15 @@ module.exports = (env, options) => {
     },
     module: {
       rules: [
-        {
-          enforce: "pre",
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: "eslint-loader",
-          options: {
-            fix: true,
-          },
-        },
+        // {
+        //   enforce: "pre",
+        //   test: /\.js$/,
+        //   exclude: /node_modules/,
+        //   loader: "eslint-loader",
+        //   options: {
+        //     fix: true,
+        //   },
+        // },
         {
           test: /\.m?js$/,
           exclude: /(node_modules|bower_components)/,
@@ -45,7 +44,7 @@ module.exports = (env, options) => {
           },
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.(sa|sc|c)ss$/,
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         },
         {
