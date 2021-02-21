@@ -17,6 +17,7 @@ module.exports = {
     },
   },
   rules: {
+    "react/prop-types": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
   },
