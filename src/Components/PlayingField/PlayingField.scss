@@ -5,6 +5,8 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(177, 177, 189);
+    width: max-content;
+    margin: 20px 0;
 }
 .cells{
     display: flex;
@@ -12,3 +14,12 @@
     justify-content: center;
     align-items: center;
 }
+.context{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin: 10px;
+padding: 10px;
+}
+

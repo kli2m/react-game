@@ -1,14 +1,16 @@
-.cell{
+.cell {
     cursor: pointer;
     border: 1px solid rebeccapurple;
     margin: 1px;
     width: 50px;
     height: 50px;
-    background-color: salmon;
-    box-shadow: 0px 0px 9px 5px rgba(143,72,72,0.75) inset;
-    -webkit-box-shadow: 0px 0px 9px 5px rgba(143,72,72,0.75) inset;
-    -moz-box-shadow: 0px 0px 9px 5px rgba(143,72,72,0.75) inset;
+    background-color: rgb(58, 218, 106);
+    box-shadow: 0px 0px 9px 5px rgba(143, 72, 72, 0.75) inset;
+    -webkit-box-shadow: 0px 0px 9px 5px rgba(143, 72, 72, 0.75) inset;
+    -moz-box-shadow: 0px 0px 9px 5px rgba(143, 72, 72, 0.75) inset;
     text-align: center;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    display: flex;
 }

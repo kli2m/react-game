@@ -1,57 +1,104 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Tooltip, Switch, Button, Typography, Form, Image } from "antd";
 
 import "./PlayingField.scss";
-import Cell from "../Cell/Cell";
-import createArr from "../../utils/createArr";
 import getWordsApi from "../../utils/getWordsApi";
+import shuffle from "../../utils/shuffle";
+import Word from "../Word/Word";
+import loading from "../../assets/img/loading.gif"
+const RS_LANG_DATA =
+  "https://raw.githubusercontent.com/kli2m/rslang-data/master/";
+ 
 
 const PlayingField = ({ isSound, selectedLevel }) => {
   const [level, setLevel] = useState({ level: selectedLevel, page: 0 });
-  const [words, setWords] = useState([]);
-  const [cells, setCells] = useState(createArr(3));
+  const [isLoading, setIsLoading] = useState(true);
+  const [words, setWords] = useState(null);
+  const [currentWord, setCurrentWord] = useState(null);
+  const [count, setCount] = useState(0);
+
+  const { Text, Title } = Typography;
+
+  async function loadWords(currentLevel, page) {
+    const res = await getWordsApi(currentLevel, page);
+
+    let uppgradeRes = res.map((word) => {
+      word.letter = shuffle(word.word.split(""));
+      word.image = RS_LANG_DATA + word.image;
+      return word;
+    });
+    console.log("level");
+  if(words===null) setWords(shuffle(uppgradeRes));
+  else{ setWords(words.concat(uppgradeRes))
+    setIsLoading(false)
+  }
+  
+  }
 
   useEffect(() => {
-    async function loadWords(currentLevel, page) {
-      const res = await getWordsApi(currentLevel, page);
-      res.sort(() => Math.random() - 0.5);
-      setWords(res);
-    }
     loadWords(level.level, level.page);
-  }, [level]);
+  }, []);
 
-  console.log(words);
-  function handleOnDragEnd(result) {
-    if (!result.destination) return;
-    const items = Array.from(words);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setWords(items);
-  }
+  useEffect(() => {
+    if (currentWord !== null)   setIsLoading(false);
+  }, [currentWord]);
+
+  useEffect(() => {
+    if (words !== null) setCurrentWord(words[count]);
+  }, [words]);
+
+  useEffect(() => {
+    if (words !== null) setCurrentWord(words[count]);
+  }, [count]);
+
+const nullify=()=>{
+  setCount(0);
+  setCurrentWord(null)
+  setWords(null);
+  loadWords(level.level, level.page++);
+}
+
+  const onHandleClickBtnNext = () => {
+    if (count < words.length-1) setCount(count + 1);
+    else {
+
+      setIsLoading(true)
+      loadWords(level.level, level.page++);
+     
+      // nullify();
+    }
+  };
 
   return (
     <>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="playingField" direction="horizontal">
-          {(provided) => (
-            <div
-              className="playingField"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {words.map((e, i) => (
-                <Draggable key={e.id} draggableId={e.id} index={i}>
-                  {(provided) => (
-                    <Cell valueCell={e.word} provided={provided} />
-                  )}
-                </Draggable>
-              ))}
+      {!isLoading ? (
+        <div className="context">
+          <Image
+            className="context_image context_child"
+            alt="Loading"
+            fallback={`Error loading file ${currentWord.image}`}
+            width="max-content"
+            src={currentWord.image}
+          ></Image>
 
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+          <Word
+            className="context_word context_child"
+            wordSplit={currentWord.letter}
+          />
+
+          <Button
+            className="context_btn_next context_child"
+            onClick={onHandleClickBtnNext}
+          >
+            Next
+          </Button>
+        </div>
+      ) : (
+        <Title level={4} className="text_loading">
+          <Text strong><Image src={loading}></Image> </Text>
+        </Title>
+      )}
     </>
   );
 };
