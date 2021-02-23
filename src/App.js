@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tooltip, Switch, Button, Typography, Form } from "antd";
+import { Tooltip, Switch, Button, Typography, Form, Progress } from "antd";
 import "./App.scss";
 import PlayingField from "./Components/PlayingField/PlayingField";
 import LevelDropdown from "./Components/LevelDropdown/LevelDropdown";
@@ -39,7 +39,9 @@ const App = () => {
 
       <main className="letterSolver__main">
         {isStart ? (
+          
           <PlayingField isSound={isSound} selectedLevel={level} />
+        
         ) : (
           <div className="letterSolver__start_game">
             <Title level={1} className="letterSolver__start_game-title">

@@ -1,13 +1,15 @@
 .playingField {
-    border: 2px solid rgb(21, 255, 0);
+    border: 3px solid #99b097;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: rgb(177, 177, 189);
+    background-color: #737ae1;
     width: max-content;
     margin: 20px 0;
+    border-radius: 5px;
 }
+
 .cells{
     display: flex;
     flex-direction: row;
@@ -16,10 +18,51 @@
 }
 .context{
     display: flex;
+flex-direction: row;
+justify-content:center;
+text-align: center;
+width: 100%;
+}
+.context_image{
+    border-radius: 10px;
+   
+}
+.context-progress_bar{
+    width: 100px;
+    height: 100px;
+    margin-top: 100px;
+  
+}
+.context-playing_field{
+    display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 margin: 10px;
 padding: 10px;
+width: 600px;
 }
 
+.context_answer{
+height: 100px;
+}
+
+.noActive{
+    pointer-events: none;
+    box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75) ;
+    -webkit-box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75) ;
+    -moz-box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75) ;
+
+    border: 2px solid red;
+    animation: 0.01s tremor ease-out ;
+}
+
+@keyframes tremor {
+    0% , 25% {
+        left: -0.5px;
+        transform: translateX(-4%);
+    }
+    50%, 100% { left: 0.5px;
+        transform: translateX(4%);  
+}
+}   
