@@ -3,8 +3,8 @@ import { Progress, Tooltip } from "antd"
 import './ProgressBox.scss'
 
 
-const ProgressBox = ({percent, setPercent}) => {
-  
+const ProgressBox = ({ percent, setPercent,difficultLevel }) => {
+
 
     useEffect(() => {
         if (percent > 0) {
@@ -14,19 +14,16 @@ const ProgressBox = ({percent, setPercent}) => {
     })
 
     const progress = () => {
-        setPercent(percent - 10)
+      
+        setPercent(percent-(100/difficultLevel))       
     }
 
     return (
 
         <div className="context-progress_bar">
-              <Tooltip
-            placement="left"
-            title="Timer"
-            color="magenta"
-          >
-            <Progress className="context-progress_bar-cirle" type="circle" percent={percent} format={(percent) =>(percent>1)?`${percent / 10} seconds`:`you lose!`} strokeColor="#1890ff" trailColor="red" strokeWidth="9" width="60" gapPosition="top"  ></Progress>
-            </Tooltip>
+
+            <Progress className="context-progress_bar-cirle" type="circle" percent={percent} format={(percent) => (percent > 1) ? `${Math.floor( percent/100*difficultLevel)} seconds` : `you lose!`}  strokeColor="#1890ff" trailColor="red" strokeWidth="9" width="60" gapPosition="top"  ></Progress>
+
         </div>
 
     )

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Tooltip, Switch, Button, Typography, Form, Image, Progress } from "antd";
 
 import "./PlayingField.scss";
@@ -7,41 +6,45 @@ import getWordsApi from "../../utils/getWordsApi";
 import shuffle from "../../utils/shuffle";
 import Word from "../Word/Word";
 import ProgressBox from '../ProgressBox/ProgressBox'
+import AnswerBox from '../AnswerBox/AnswerBox'
 import loading from "../../assets/img/loading.gif"
 const RS_LANG_DATA =
   "https://raw.githubusercontent.com/kli2m/rslang-data/master/";
 
 
-const PlayingField = ({ isSound, selectedLevel }) => {
+const PlayingField = ({ isSound, user }) => {
 
- 
+  const getLocalSt =  localStorage.getItem("statistics")?localStorage.setItem("statistics"):null
 
-  const [level, setLevel] = useState({ level: selectedLevel, page: 0 });
+  const [level, setLevel] = useState({ level: user.wordsLevel, page: 0 });
   const [isLoading, setIsLoading] = useState(true);
   const [isCheck, setIsCheck] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(null);
   const [words, setWords] = useState(null);
   const [currentWord, setCurrentWord] = useState(null);
   const [count, setCount] = useState(0);
   const [percent, setPercent] = useState(100);
+  const [statistics,setStatistics]=useState(getLocalSt)
+
+  const imageRef=useRef(null)
+  const wordRef=useRef(null)
 
   const { Text, Title } = Typography;
 
   async function loadWords(currentLevel, page) {
     const res = await getWordsApi(currentLevel, page);
-
-    let uppgradeRes = await res.map((word) => {
+    let upgradeRes = await res.map((word) => {
       word.letter = shuffle(word.word.split(""));
       word.image = RS_LANG_DATA + word.image;
       return word;
     });
 
-    if (words === null) setWords(shuffle(uppgradeRes));
+    if (words === null) setWords(shuffle(upgradeRes));
     else {
-      setWords(words.concat(uppgradeRes))
+      setWords(words.concat(upgradeRes))
       setCount(count + 1)
       setIsLoading(false)
     }
-
   }
 
   useEffect(() => {
@@ -49,31 +52,35 @@ const PlayingField = ({ isSound, selectedLevel }) => {
   }, [level]);
 
 
+const addStatisticsUser = (user)=>{
+let userStat 
+for (const key in statistics) {
+if(key[name]===user.name) userStat= Object.create(key[name])
+}
+
+if(!userStat) userStat={name:user,statistics:{}}
+
+}
+
+  // useEffect(() => {
+  // if(isAnswer) {
+
+
+  //   setStatistics(statistics)
+  // }
+  // }, [isAnswer]);
 
   const onCheck = (letters) => {
     setIsCheck(true);
-    if (letters.join("") === currentWord.word) console.log(true)
-    else {
-
-      const contexImageEl =  document.querySelector(".context_image");
-      contexImageEl.classList.add("noActive")
-      
-      const contexWordEl =  document.querySelector(".playingField ");
-      contexWordEl.classList.add("noActive")
-
+    if (letters.join("") === currentWord.word) {     
+      setIsAnswer(true)
+    }else {
+      setIsAnswer(false)
+      imageRef.current.classList.add("noActive")     
+      wordRef.current.classList.add("noActive")
     }
-
-
-    setTimeout(()=>{
-      const contexImageEl =  document.querySelector(".context_image");
-      contexImageEl.classList.remove("noActive")
-      
-      const contexWordEl =  document.querySelector(".playingField ");
-      contexWordEl.classList.remove("noActive")
-    },500)
    
   }
-
 
   useEffect(() => {
     if (currentWord !== null) setIsLoading(false);
@@ -86,7 +93,9 @@ const PlayingField = ({ isSound, selectedLevel }) => {
 
   useEffect(() => {
     if (words !== null) setCurrentWord(words[count]);
-
+    setIsAnswer(false)
+    imageRef.current? imageRef.current.classList.remove("noActive"):null
+    wordRef.current? wordRef.current.classList.remove("noActive"):null
   }, [count]);
 
   const onHandleClickBtnNext = () => {
@@ -105,43 +114,37 @@ const PlayingField = ({ isSound, selectedLevel }) => {
     <>
       {!isLoading ? (
         <div className="context">
-          <ProgressBox percent={percent} setPercent={setPercent} />
+          <ProgressBox percent={percent} setPercent={setPercent} difficultLevel={user.difficultLevel}/>
           <div className="context-playing_field">
+            <div ref ={imageRef}>
             <Image
-              className="context_image context_child"
+              className="context_image"
               alt="Loading"
               fallback={`Error loading file ${currentWord.image}`}
-              width="300px"
-
+              width="300px"             
               src={currentWord.image}
             ></Image>
-            <div className="context_answer">
-
             </div>
+            <AnswerBox 
+            currentWord={currentWord} 
+            isCheck={isCheck}
+            />           
             <Word          
-              className="context_word context_child"
+              className="context_word"
               wordSplit={currentWord.letter}
               onCheck={onCheck}
-              isCheck={isCheck}
-            />
-            {isCheck ?
-
-              <Button
-                className="context_btn_next context_child"
-                onClick={onHandleClickBtnNext}
-              >
-                Next
-              </Button>
-              :
-              <>
-              </>
-            }
-          </div>
+              isCheck={isCheck}    
+              onHandleClickBtnNext={onHandleClickBtnNext}   
+              wordRef={wordRef}  
+            />                          
+          </div>   
         </div>
       ) : (
+        <div className="context">
           <Title level={4} className="text_loading">
             <Text strong><img src={loading} /></Text>
           </Title>
+          </div>
         )}
     </>
   );

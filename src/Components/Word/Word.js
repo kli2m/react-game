@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Tooltip, Switch, Button, Typography, Form, Image } from "antd";
 import Cell from "../Cell/Cell";
 
-const Word = ({ wordSplit, onCheck, isCheck }) => {
+const Word = ({ wordSplit, onCheck, isCheck, onHandleClickBtnNext,wordRef }) => {
 
 
   const [letters, setLetters] = useState(wordSplit)
@@ -23,11 +23,12 @@ const Word = ({ wordSplit, onCheck, isCheck }) => {
 
   return (
     <>
+    <div ref={wordRef}>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="playingField" direction="horizontal">
           {(provided) => (
-            <div 
-             
+            <div
+
               className="playingField"
               {...provided.droppableProps}
               ref={provided.innerRef}
@@ -38,7 +39,7 @@ const Word = ({ wordSplit, onCheck, isCheck }) => {
 
                 return (<Draggable key={id} draggableId={id} index={i}>
                   {(provided) => (
-                    <Cell valueCell={e} provided={provided} />
+                    <Cell  valueCell={e} provided={provided} />
                   )}
                 </Draggable>
 
@@ -50,11 +51,15 @@ const Word = ({ wordSplit, onCheck, isCheck }) => {
           )}
         </Droppable>
       </DragDropContext>
-
+      </div>
       {isCheck ?
 
-        <>
-        </>
+        <Button
+          className="context_btn_next"
+          onClick={onHandleClickBtnNext}
+        >
+          Next
+        </Button>
         :
         <Button
           className="context_btn_check"

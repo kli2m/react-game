@@ -6,7 +6,6 @@
     align-items: center;
     background-color: #737ae1;
     width: max-content;
-    margin: 20px 0;
     border-radius: 5px;
 }
 
@@ -36,15 +35,16 @@ width: 100%;
 .context-playing_field{
     display: flex;
 flex-direction: column;
-justify-content: center;
+justify-content: space-between;
 align-items: center;
 margin: 10px;
 padding: 10px;
-width: 600px;
+width: 550px;
+height: 500px;
 }
 
-.context_answer{
-height: 100px;
+.context_btn_next .context_btn_check {
+    margin: 20px 0;
 }
 
 .noActive{

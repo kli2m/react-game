@@ -3,14 +3,14 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between ;
+    justify-content: center ;
     align-items: center;
     background-color: #d7f4cf;
 }
 
 
 .letterSolver__header{
-    width: 1020px;
+    width: inherit;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,9 +20,21 @@
 
 .letterSolver__main{
    
-    width: 1020px;
+    width: inherit;
     display: flex;
     flex-direction: column;
     justify-content: space-around ;
+    align-items: center;
+}
+.letterSolver__start_game{
+    border: 4px solid blueviolet;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.letterSolver__wrapper-start_game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }

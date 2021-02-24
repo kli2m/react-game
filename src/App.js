@@ -1,49 +1,25 @@
 import React, { useState } from "react";
 import { Tooltip, Switch, Button, Typography, Form, Progress } from "antd";
 import "./App.scss";
-import PlayingField from "./Components/PlayingField/PlayingField";
-import LevelDropdown from "./Components/LevelDropdown/LevelDropdown";
+import WelcomForm from './Components/WelcomeForm/WelcomForm'
 
 const App = () => {
-  const [isStart, setIsStart] = useState(false);
-  const [isSound, setIsSound] = useState(true);
-  const [level, setLevel] = useState("0");
+  const [isStart, setIsStart] = useState(false);   
   const { Text, Title } = Typography;
 
   const startGame = () => {
     setIsStart(true);
   };
 
-  const onChangeIsSound = () => {
-    setIsSound((prev) => !prev);
-  };
 
   return (
-    <div className="letterSolver__wrapper">
-      <header className="letterSolver__header">
-        <div className="letterSolver__autoplay_box">
-          <Tooltip
-            placement="bottom"
-            title="Click to on/off autoplay sound"
-            color="magenta"
-          >
-            <Switch
-              onChange={onChangeIsSound}
-              checkedChildren="ON"
-              unCheckedChildren="OFF"
-              checked={isSound}
-            />
-          </Tooltip>
-        </div>
-      </header>
+    <div className="letterSolver__wrapper">    
 
-      <main className="letterSolver__main">
+     
         {isStart ? (
-          
-          <PlayingField isSound={isSound} selectedLevel={level} />
-        
+          <WelcomForm/>              
         ) : (
-          <div className="letterSolver__start_game">
+          <div className="letterSolver__wrapper-start_game">
             <Title level={1} className="letterSolver__start_game-title">
               <Text strong>Генератор букв</Text>
             </Title>
@@ -51,12 +27,7 @@ const App = () => {
               <Text strong>
                 Тренировка улучшает восприятие английской речи на слух.
               </Text>
-            </Title>
-            <div className="letterSolver__main-select_level">
-              <Form>
-                <LevelDropdown setLevel={setLevel} />
-              </Form>
-            </div>
+            </Title>           
             <Button
               className="letterSolver__start_game-btn"
               onClick={startGame}
@@ -66,8 +37,7 @@ const App = () => {
             </Button>
           </div>
         )}
-      </main>
-      <footer className="letterSolver__footer"></footer>
+    
     </div>
   );
 };
