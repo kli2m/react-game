@@ -7,8 +7,9 @@ import PlayingField from "../PlayingField/PlayingField";
 const WelcomForm = () => {
     const [user, setUser] = useState(null);
     const [isSound, setIsSound] = useState(true);
-    
+
     const { Text, Title } = Typography;
+
 
     const startGame = (values) => {
         if (Object.values(values.user).every(e => e !== undefined)) setUser(values.user);
@@ -21,33 +22,15 @@ const WelcomForm = () => {
 
     return (
         <>
-
-            <header className="letterSolver__header">
-                <div className="letterSolver__autoplay_box">
-                    <Tooltip
-                        placement="bottom"
-                        title="Click to on/off autoplay sound"
-                        color="magenta"
-                    >
-                        <Switch
-                            onChange={onChangeIsSound}
-                            checkedChildren="ON"
-                            unCheckedChildren="OFF"
-                            checked={isSound}
-                        />
-                    </Tooltip>
-                </div>
-            </header>
-
-            <main className="letterSolver__main">
+            <>
                 {user ? (
 
                     <PlayingField isSound={isSound} user={user} />
 
                 ) : (
-                        <div className="letterSolver__start_game">
+                        <div className="letterSolver__settings">
                             <Title level={3} className="letterSolver__start_game-title">
-                                <Text strong>Установите начальные настройки</Text>
+                                <Text strong>Установите начальные значения</Text>
                             </Title>
                             <Form onFinish={startGame} >
                                 <Form.Item name={['user', 'name']} label="NickName" rules={[{ type: "string", min: 3, max: 25, required: true, message: "Enter correct Nick" }]}>
@@ -70,6 +53,24 @@ const WelcomForm = () => {
                                         <Select.Option value="5">Шестой</Select.Option>
                                     </Select>
                                 </Form.Item>
+
+                                <Form.Item label="Playing sound: ">
+                                    <div className="letterSolver__autoplay_box">
+                                        <Tooltip
+                                            placement="bottom"
+                                            title="Click to on/off autoplay sound"
+                                            color="magenta"
+                                        >
+                                            <Switch
+                                                onChange={onChangeIsSound}
+                                                checkedChildren="ON"
+                                                unCheckedChildren="OFF"
+                                                checked={isSound}
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                </Form.Item>
+
                                 <Button
                                     className="letterSolver__start_game-btn"
                                     autoFocus
@@ -81,8 +82,9 @@ const WelcomForm = () => {
 
                         </div>
                     )}
-            </main>
-            <footer className="letterSolver__footer"></footer>
+            </>
+
+            <div className="letterSolver__footer"></div>
         </>
     );
 

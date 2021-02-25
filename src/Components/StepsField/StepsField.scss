@@ -1,0 +1,27 @@
+.steps__field{
+    background-color: #cbefc4;
+    width: 20%;
+    position: absolute;
+    height: 100vh;
+    right: 0;
+    border-left: 1px solid #d5d2d0;
+    display: flex;
+flex-direction: column;
+justify-content: start;
+}
+
+.steps__field-context{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.steps__field-context-item{
+    width: 70px;
+    height: 35px;
+    border: 1px solid yellow;
+    border-radius: 50px;
+    background-color: aqua;
+    margin: 5px;
+    text-align: center;
+}
