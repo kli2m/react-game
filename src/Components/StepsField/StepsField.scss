@@ -9,8 +9,12 @@
 flex-direction: column;
 justify-content: start;
 }
-
+.steps__field-title{
+    height: 10%;
+    border-bottom: 1px solid #d5d2d0;
+}
 .steps__field-context{
+    height: 70%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -24,4 +28,8 @@ justify-content: start;
     background-color: aqua;
     margin: 5px;
     text-align: center;
+}
+.steps__field-audio_settings{
+    height: 20%;
+    border-top: 1px solid #d5d2d0;
 }

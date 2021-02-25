@@ -1,13 +1,27 @@
-import React,{useState } from 'react'
-import {Rate} from 'antd';
+import React,{useState, useEffect } from 'react'
+import {Rate,Slider } from 'antd';
+import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 
 import './StepsField.scss'
 
 
 let arrSteps =  [1,2,3,4,5]
 
-const StepsField = ()=>{
+const StepsField = ({arrAudio})=>{
 
+const [inputValue,setInputValue]=useState(100)
+
+const onChange=(value)=>{
+
+  setInputValue(value)
+  
+}
+
+useEffect(()=>{
+  arrAudio.forEach(audio=>{
+    audio.volume=inputValue/100
+  })
+},[inputValue])
 
 
     return (
@@ -22,7 +36,11 @@ const StepsField = ()=>{
   </span>
   )}
 </div>
-
+<div className="steps__field-audio_settings">
+<Slider value={typeof inputValue === 'number' ? inputValue : 0} tooltipVisible onChange={onChange}/>
+<FrownOutlined  />
+<div>{inputValue}</div>
+</div>
         </div>
     )
 

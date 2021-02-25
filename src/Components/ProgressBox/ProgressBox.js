@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Progress, Tooltip } from "antd"
 import './ProgressBox.scss'
-import seconds from '../../assets/audio/seconds.mp3';
-
-const ProgressBox = ({ percent, setPercent, difficultLevel, isCheck, onCheck }) => {
 
 
-    const listenAudio = new Audio(seconds)
+const ProgressBox = ({audioSeconds, percent, setPercent, difficultLevel, isCheck, onCheck }) => {
+
+
+    
+
 
     useEffect(() => {
         if (!isCheck && percent > 1) {           
-            listenAudio.play()
+            audioSeconds.play()
             let timer = setInterval(() => progress(), 1000)
             return () => clearInterval(timer);
         } else onCheck([])
