@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Tooltip,
   Switch,
@@ -21,8 +21,8 @@ const RS_LANG_DATA =
   "https://raw.githubusercontent.com/kli2m/rslang-data/master/";
 import soundRight from "../../assets/audio/right_answer.mp3";
 import soundWrong from "../../assets/audio//wrong-answer.mp3";
-import seconds from '../../assets/audio/seconds.mp3';
-
+import soundSeconds from "../../assets/audio/seconds.mp3";
+import imgLoading from '../../assets/img/loading.gif'
 
 const PlayingField = ({ isSound, user }) => {
   const getLocalSt = localStorage.getItem("statistics")
@@ -38,7 +38,11 @@ const PlayingField = ({ isSound, user }) => {
   const [count, setCount] = useState(0);
   const [percent, setPercent] = useState(100);
   const [statistics, setStatistics] = useState(getLocalSt);
-  const [arrAudio,setArrAudio]=useState([new Audio(seconds),new Audio(soundRight),new Audio(soundWrong)])
+  const [media, setMedia] = useState([
+    new Audio(soundRight),
+    new Audio(soundWrong),
+    new Audio(soundSeconds),
+  ]);
 
   const imageRef = useRef(null);
   const wordRef = useRef(null);
@@ -65,35 +69,41 @@ const PlayingField = ({ isSound, user }) => {
     loadWords(level.level, level.page);
   }, [level]);
 
-  const effectRightAnswer = () => {
-    arrAudio[1].play()
-    setIsAnswer(true);
-    imageRef.current.classList.add("allRight");
-    wordRef.current.classList.add("allRight");
-  };
-
-  const effectWrongAnswer = () => {
-    arrAudio[2].play()
-    setIsAnswer(false);
-    imageRef.current.classList.add("noActive");
-    wordRef.current.classList.add("noActive");
-  };
-
-  const delEffectsAnswer = () => {
-    imageRef.current ? imageRef.current.classList.remove("noActive") : null;
-    wordRef.current ? wordRef.current.classList.remove("noActive") : null;
-    imageRef.current ? imageRef.current.classList.remove("allRight") : null;
-    wordRef.current ? wordRef.current.classList.remove("allRight") : null;
-  };
-
-  const onCheck = (letters) => {
-    if (letters.join("") === currentWord.word) {
-      effectRightAnswer();
-    } else {
-      effectWrongAnswer();
+  const addStatisticsUser = (user) => {
+    let userStat;
+    for (const key in statistics) {
+      if (key[name] === user.name) userStat = Object.create(key[name]);
     }
-    setIsCheck(true);
+
+    if (!userStat) userStat = { name: user, statistics: {} };
   };
+
+  // useEffect(() => {
+  // if(isAnswer) {
+
+  //   setStatistics(statistics)
+  // }
+  // }, [isAnswer]);
+
+  const onCheck = useCallback(
+    (letters) => {
+      if (letters.join("") === currentWord.word) {
+        console.log(`Right`);
+        media[0].play();
+        setIsAnswer(true);
+        imageRef.current.classList.add("allRight");
+        wordRef.current.classList.add("allRight");
+      } else {
+        console.log(`wrong`);
+        media[1].play();
+        setIsAnswer(false);
+        imageRef.current.classList.add("noActive");
+        wordRef.current.classList.add("noActive");
+      }
+      setIsCheck(true);
+    },
+    [currentWord]
+  );
 
   useEffect(() => {
     if (currentWord !== null) setIsLoading(false);
@@ -108,7 +118,10 @@ const PlayingField = ({ isSound, user }) => {
     setIsCheck(false);
     if (words !== null) setCurrentWord(words[count]);
     setIsAnswer(false);
-    delEffectsAnswer();
+    imageRef.current ? imageRef.current.classList.remove("noActive") : null;
+    wordRef.current ? wordRef.current.classList.remove("noActive") : null;
+    imageRef.current ? imageRef.current.classList.remove("allRight") : null;
+    wordRef.current ? wordRef.current.classList.remove("allRight") : null;
   }, [count]);
 
   const onHandleClickBtnNext = () => {
@@ -124,10 +137,9 @@ const PlayingField = ({ isSound, user }) => {
       {!isLoading ? (
         <>
           <div className="header"></div>
-
           <div className="context">
             <ProgressBox
-              audioSeconds={arrAudio[0]}
+              soundSecond={media[2]}
               percent={percent}
               setPercent={setPercent}
               difficultLevel={user.difficultLevel}
@@ -155,11 +167,11 @@ const PlayingField = ({ isSound, user }) => {
               />
             </div>
           </div>
-          <StepsField arrAudio={arrAudio} />
+          <StepsField media={media} />
           <div className="footer"></div>
         </>
       ) : (
-        <Spin tip="Loading..." size="large"></Spin>
+        <Image src={imgLoading}></Image>
       )}
     </>
   );

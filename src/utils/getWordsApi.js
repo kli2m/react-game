@@ -8,7 +8,6 @@ const getWordsSpeakit = async (group, page) => {
     }
 
     const data = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     throw new Error(`Error in herokuapp - ${error.message}`);

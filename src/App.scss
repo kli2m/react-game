@@ -3,14 +3,14 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center ;
+    justify-content: space-between ;
     align-items: center;
-    background-color: #d7f4cf;
+    background-color:#A7EABD;
 }
 
 
-.letterSolver__header{
-    width: inherit;
+.letterSolver__wrapper-header{
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -38,4 +38,10 @@
     justify-content: space-between;
     align-items: center;
     height: 300px;
+}
+.letterSolver__wrapper-footer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

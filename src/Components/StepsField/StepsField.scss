@@ -1,20 +1,19 @@
 .steps__field{
-    background-color: #cbefc4;
+    background-color: #7FE09F;
     width: 20%;
     position: absolute;
     height: 100vh;
     right: 0;
-    border-left: 1px solid #d5d2d0;
+    border-left: 1px solid #2A9C50;
     display: flex;
 flex-direction: column;
-justify-content: start;
+justify-content: space-between;
 }
 .steps__field-title{
     height: 10%;
-    border-bottom: 1px solid #d5d2d0;
+    border-bottom: 1px solid #2A9C50;
 }
 .steps__field-context{
-    height: 70%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -22,14 +21,16 @@ justify-content: start;
 }
 .steps__field-context-item{
     width: 70px;
-    height: 35px;
+    height: 70%;
     border: 1px solid yellow;
     border-radius: 50px;
     background-color: aqua;
     margin: 5px;
     text-align: center;
 }
-.steps__field-audio_settings{
+
+.steps__field-sounds_settings{
     height: 20%;
-    border-top: 1px solid #d5d2d0;
+    padding: 10px 10px;
+    border-top: 1px solid #2A9C50;
 }
