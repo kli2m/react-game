@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Rate, Slider } from "antd";
-
+import { Steps, Slider } from "antd";
+import { FireOutlined } from "@ant-design/icons";
+const { Step } = Steps;
 import "./StepsField.scss";
 
-let arrSteps = [1, 2, 3, 4, 5];
-
-const StepsField = ({ media }) => {
+const StepsField = ({ media,arrWords,count }) => {
   const [inputValue, setInputValue] = useState(70);
 
   useEffect(() => {
@@ -22,12 +21,12 @@ const StepsField = ({ media }) => {
     <div className="steps__field">
       <div className="steps__field-title">Steps:</div>
       <div className="steps__field-context">
-        {arrSteps.map((el, i) => (
-          <span key={arrSteps.length + i}>
-            <Rate defaultValue="3" />
-            <div className="ant-rate-text">{i}</div>
-          </span>
-        ))}
+      <Steps direction="vertical">
+        {arrWords.map((el, i) =>                       
+          <Step key={arrWords.length+i} title={`Step ${i+1}`} description={`${count}/${el.length}`} />
+        )}
+        
+         </Steps>
       </div>
       <div className="steps__field-sounds_settings">
         <Slider value={inputValue} onChange={onChange}></Slider>

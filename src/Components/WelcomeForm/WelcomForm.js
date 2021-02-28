@@ -12,6 +12,7 @@ const WelcomForm = ({ language }) => {
 
   const startGame = (values) => {
     if (Object.values(values.user).every((e) => e !== undefined))
+    console.log(values)
       setUser(values.user);
   };
 
