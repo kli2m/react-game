@@ -1,25 +1,22 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
-  Tooltip,
-  Switch,
-  Button,
+
   Typography,
-  Form,
+
   Image,
-  Progress,
-  Spin,
-  Modal,
+
 } from "antd";
 
 import "./PlayingField.scss";
-import getWordsApi from "../../utils/getWordsApi";
 import getWordsApi2 from "../../utils/getWordsApi2";
 import shuffle from "../../utils/shuffle";
 import Word from "../Word/Word";
 import ProgressBox from "../ProgressBox/ProgressBox";
 import AnswerBox from "../AnswerBox/AnswerBox";
 import StepsField from "../StepsField/StepsField";
-import modalNext from "../ModalNext/modalNext";
+import ModalNext from "../ModalNext/ModalNext";
+import ModalNextLevel from "../ModalNext/ModalNextLevel";
+import UserSetting from "../UserSetting/UserSetting";
 
 const RS_LANG_DATA =
   "https://raw.githubusercontent.com/kli2m/rslang-data/master/";
@@ -28,22 +25,22 @@ import soundWrong from "../../assets/audio//wrong-answer.mp3";
 import soundSeconds from "../../assets/audio/seconds.mp3";
 import imgLoading from "../../assets/img/loading.gif";
 
-const PlayingField = ({ isSound, user }) => {
-  const getLocalSt = localStorage.getItem("statistics")
-    ? localStorage.setItem("statistics")
-    : null;
+const PlayingField = ({ isSound, user, setUser }) => {
+
+
 
   const [level, setLevel] = useState(user.wordsLevel);
+  const [arrWords, setArrWords] = useState(null);
+  const [stepCount, setStepCount] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isCheck, setIsCheck] = useState(false);
   const [isAnswer, setIsAnswer] = useState(null);
-  const [arrWords, setArrWords] = useState(null);
+
   const [words, setWords] = useState(null);
   const [currentWord, setCurrentWord] = useState(null);
   const [count, setCount] = useState(0);
-  const [stepCount, setStepCount] = useState(0);
   const [percent, setPercent] = useState(100);
-  const [statistics, setStatistics] = useState(getLocalSt);
+  //const [statistics, setStatistics] = useState(getLocalSt);
   const [media, setMedia] = useState([
     new Audio(soundRight),
     new Audio(soundWrong),
@@ -56,6 +53,8 @@ const PlayingField = ({ isSound, user }) => {
   const { Text, Title } = Typography;
 
   async function loadWords(currentLevel) {
+    setIsLoading(true)
+
     const res = await getWordsApi2(currentLevel);
 
     const stepWordShuffle = res.map((step) => shuffle(step));
@@ -67,50 +66,22 @@ const PlayingField = ({ isSound, user }) => {
         return word;
       });
     });
-
-    console.log(shuffleLetters);
+    console.log('await loaded')
     setArrWords(shuffleLetters);
   }
 
   useEffect(() => {
+    setIsLoading(true)
     if (arrWords !== null) setWords(arrWords[stepCount]);
   }, [arrWords]);
 
   useEffect(() => {
-    loadWords(level);
+    setIsLoading(true);
+    setCurrentWord(null)
+    setCount(0);
+    setStepCount(0);
+    loadWords(level);       
   }, [level]);
-
-  // async function loadWords(currentLevel, page) {
-  //   const res = await getWordsApi(currentLevel, page);
-  //   let upgradeRes = await res.map((word) => {
-  //     word.letter = shuffle(word.word.split(""));
-  //     word.image = RS_LANG_DATA + word.image;
-  //     return word;
-  //   });
-
-  //   if (words === null) setWords(shuffle(upgradeRes));
-  //   else {
-  //     setWords(words.concat(upgradeRes));
-  //     setCount(count + 1);
-  //     setIsLoading(false);
-  //   }
-  // }
-
-  // const addStatisticsUser = (user) => {
-  //   let userStat;
-  //   for (const key in statistics) {
-  //     if (key[name] === user.name) userStat = Object.create(key[name]);
-  //   }
-
-  //   if (!userStat) userStat = { name: user, statistics: {} };
-  // };
-
-  // useEffect(() => {
-  // if(isAnswer) {
-
-  //   setStatistics(statistics)
-  // }
-  // }, [isAnswer]);
 
   const onCheck = useCallback(
     (letters) => {
@@ -131,19 +102,24 @@ const PlayingField = ({ isSound, user }) => {
   );
 
   useEffect(() => {
-    if (currentWord !== null) setIsLoading(false);
+    console.log(`currentWord`);
+    console.log(currentWord);
+    if (currentWord !== null) setIsLoading(false)  
   }, [currentWord]);
 
   useEffect(() => {
     console.log(`words`);
     console.log(words);
-    if (words !== null) setCurrentWord(words[count]);
+    if (words !== null) {    
+      setCurrentWord(words[count]);
+    }
   }, [words]);
+
 
   useEffect(() => {
     console.log(`stepCount`);
     console.log(stepCount);
-    if (stepCount !== 0) {
+    if (stepCount !== null && arrWords !== null) {
       setWords(arrWords[stepCount]);
       setCount(0);
     }
@@ -152,24 +128,30 @@ const PlayingField = ({ isSound, user }) => {
   useEffect(() => {
     console.log(`count`);
     console.log(count);
+    if (words === null) return;
     setPercent(100);
     setIsCheck(false);
-    if (words !== null) setCurrentWord(words[count]);
+    setCurrentWord(words[count]);
     setIsAnswer(false);
     imageRef.current ? imageRef.current.classList.remove("noActive") : null;
     wordRef.current ? wordRef.current.classList.remove("noActive") : null;
     imageRef.current ? imageRef.current.classList.remove("allRight") : null;
-    wordRef.current ? wordRef.current.classList.remove("allRight") : null;
+    wordRef.current ? wordRef.current.classList.remove("allRight") : null;  
   }, [count]);
 
   const onHandleClickBtnNext = () => {
-    if (count < words.length - 1) setCount(count + 1);
+    // if (count < words.length - 1) setCount(count + 1);
+    if (count < 2) setCount(count + 1);
     else {
       setIsLoading(true);
-
-      if (stepCount < arrWords.length) {
-        modalNext(setStepCount, stepCount);
-      } else modalNext(setCount);
+      //  if (stepCount < arrWords.length) {
+      if (stepCount < 2) {
+        setIsLoading(true);
+        ModalNext(setStepCount, stepCount, setCount);
+      } else {
+        setIsLoading(true);
+        ModalNextLevel(level, setLevel, setStepCount);
+      }
     }
   };
 
@@ -177,7 +159,8 @@ const PlayingField = ({ isSound, user }) => {
     <>
       {!isLoading ? (
         <>
-          <div className="header"></div>
+
+          <UserSetting user={user} setUser={setUser} />
           <div className="context">
             <ProgressBox
               soundSecond={media[2]}
@@ -194,6 +177,7 @@ const PlayingField = ({ isSound, user }) => {
                   alt="Loading"
                   fallback={`Error loading file ${currentWord.image}`}
                   width="300px"
+                  height="200px"
                   src={currentWord.image}
                 ></Image>
               </div>
@@ -212,8 +196,8 @@ const PlayingField = ({ isSound, user }) => {
           <div className="footer"></div>
         </>
       ) : (
-        <img src={imgLoading}></img>
-      )}
+          <img src={imgLoading}></img>
+        )}
     </>
   );
 };
