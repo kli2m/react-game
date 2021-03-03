@@ -6,7 +6,7 @@ import Statistics from '../Statistics/Statistics'
 
 import "./UserSetting.scss";
 
-const UserSetting = ({user,setUser }) => {
+const UserSetting = ({user,setUser,language }) => {
     const { Text, Title } = Typography;
 
     const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
@@ -18,9 +18,9 @@ const UserSetting = ({user,setUser }) => {
             <Title level={5} >
                 <Text strong>{user.name}</Text>
             </Title>
-            <div>Score: {userLocal["score"]?userLocal["score"]:"0"}</div>
-            <Button onClick={Statistics } >Показать статистику</Button>
-            <Button onClick={() => confirmAnswer(setUser)} >Выйти в главное меню</Button>
+            <div>{language.user_settings_page_score} {userLocal["score"]?userLocal["score"]:"0"}</div>
+    <Button onClick={Statistics } >{language.user_settings_page_show_statistics}у</Button>
+    <Button onClick={() => confirmAnswer(setUser)} >{language.user_settings_page_exit}</Button>
         </div>
 
 

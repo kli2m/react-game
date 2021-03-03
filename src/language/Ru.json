@@ -4,6 +4,7 @@
     "main_page_phrase": "Тренировка улучшает восприятие английской речи на слух.",
     "main_page_collapse_panel_header": "Нажми для прочтения инструкции ... ",
     "main_page_collapse_panel_text": "Инструкция...",
+    "main_page_collapse_panel_text_context":"Правила игры очень просты. Нужно собрать как можно быстрее слово из доступных букв английского алфавита, меняя порядок букв. Примерная подсказка слова кроется в предоставленном изображении над комбинацией букв. Как только соберете слово, необходимо скорее нажать на кнопку Проверить, в зависимости от верного или  не верного составления букв будет (не будет) пополняться счёт игровыми баллами. Уровень сложности определяется перед началом игры: Легкий - дается 60 секунд на ответ, каждое угаданное слово приносит 1 балл; Нормальный - дается 40 секунд на ответ, каждое угаданное слово приносит 2 балла; Тяжелый - дается 20 секунд на ответ, каждое угаданное слово приносит 3 балла; Текстовый банк игры «Генератор букв» не идеален, но тем не менее данная игра всё же обогатит словарный запас английских слов и порадует новыми открытиями. Приятного прохождения в любое время!",
     "main_page_btn_start": "Нажми чтобы начать",
     "welcom_page_title": "Установите начальные значения",
     "welcom_page_label_name": "Ник:",
@@ -26,5 +27,28 @@
     "welcom_page_label_sound_on": "Вкл",
     "welcom_page_label_sound_off": "Выкл",
     "welcom_page_tooltip_label_sound": "Нажми ВКЛ/ВЫКЛ для проигрывания музыки",
-    "welcom_page_btn_next": "Далее"
+    "welcom_page_btn_next": "Далее",
+
+    "progress_page_seconds_text": "секунд",
+    "progress_page_seconds_lose": "Вы проиграли!",
+
+    "word_page_btn_next": "Далее",
+    "word_page_btn_check": "Проверить",
+
+    "steps_page_title": "Шаги: ",
+    "steps_page_item_title": "Шаг ",
+    "steps_page_item_right": "Верно: ",
+    "steps_page_item_wrong": "Ошибок: ",
+    "steps_page_volume_title": "Контоль звука",
+
+    "user_settings_page_score": "Баллы: ",
+    "user_settings_page_show_statistics": "Показать статистику",
+    "user_settings_page_exit": "Выйти в главное меню",
+
+    "modal_next_page_title_step": "Шаг ",
+    "modal_next_page_title_completed": "завершен ",
+    "modal_next_page_content_right": "Верно: ",
+    "modal_next_page_content_wrong": "Неправильно: ",
+    "modal_next_page_btn_next": "Следующий шаг",
+    "modal_next_page_btn_repeat": "Повторить"
 }

@@ -46,5 +46,27 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    padding-bottom: 10px;
+    
 }
 
+.letterSolver__wrapper-header-btn_full_screen{
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    border: 1px solid darkgreen;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    width: 45px;
+    height: 25px;
+    background-color: rgba(77, 255, 60, 0.75);
+    &:hover{
+        background-color: springgreen;
+    }
+}
+
+.footer_item{
+    width: 100px;
+    height: 50px;
+}

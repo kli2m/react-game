@@ -3,20 +3,20 @@ import { Modal, Space } from 'antd';
 
 const { confirm } = Modal;
 
-const ModalNext = (setStepCount,stepCount,setCount,wordsLevelLocal) => {
+const ModalNext = (setStepCount,stepCount,setCount,wordsLevelLocal,language) => {
 
     return (
         <Space>
             {Modal.confirm (
                 {
-                    title: `Step ${stepCount+1} completed !!!`,
+                    title: `${language.modal_next_page_title_step} ${stepCount+1} ${language.modal_next_page_title_completed} !!!`,
                     content: (
                         <div>                   
-                    <div>Right : {wordsLevelLocal[stepCount].filter(e=>e.answer===true).length} Wrong: {wordsLevelLocal[stepCount].filter(e=>e.answer===false).length}</div>
+                    <div>{language.modal_next_page_content_right} : {wordsLevelLocal[stepCount].filter(e=>e.answer===true).length} {language.modal_next_page_content_wrong} {wordsLevelLocal[stepCount].filter(e=>e.answer===false).length}</div>
                     </div>
                     ),
-                    okText:"Следующий Шаг",
-                    cancelText:"Попробовать еще",
+                    okText:`${language.modal_next_page_btn_next}`,
+                    cancelText:`${language.modal_next_page_btn_repeat}`,
                     onOk() {
                       setStepCount(stepCount+1)
                     },

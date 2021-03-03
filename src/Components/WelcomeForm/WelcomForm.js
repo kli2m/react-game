@@ -150,7 +150,7 @@ const WelcomForm = ({ language }) => {
                   </Select>
                 </Form.Item>
 
-                <Form.Item label={language.welcom_page_label_sound}>
+                {/* <Form.Item label={language.welcom_page_label_sound}>
                   <div className="letterSolver__autoplay_box">
                     <Tooltip
                       placement="bottom"
@@ -165,7 +165,7 @@ const WelcomForm = ({ language }) => {
                       />
                     </Tooltip>
                   </div>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Button
                   className="letterSolver__start_game-btn"

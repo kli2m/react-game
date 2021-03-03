@@ -19,20 +19,16 @@ import soundWrong from "../../assets/audio//wrong-answer.mp3";
 import soundSeconds from "../../assets/audio/seconds.mp3";
 import imgLoading from "../../assets/img/loading.gif";
 
+const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
+  const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"));
 
+  const userLocal = getStatisticsLocal[user.name];
 
-const PlayingField = ({ isSound, user, setUser, statistics }) => {
+  const userScore = userLocal[score];
 
-  const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
+  const diffLevelLocal = userLocal[user.difficultLevel];
 
-  const userLocal = getStatisticsLocal[user.name]
-
-  const userScore = userLocal[score]
-
-  const diffLevelLocal = userLocal[user.difficultLevel]
-
-  const wordsLevelLocal = diffLevelLocal[user.wordsLevel]
-
+  const wordsLevelLocal = diffLevelLocal[user.wordsLevel];
 
   const [level, setLevel] = useState(Number(user.wordsLevel));
   const [arrWords, setArrWords] = useState(null);
@@ -76,70 +72,61 @@ const PlayingField = ({ isSound, user, setUser, statistics }) => {
     }
   }, [arrWords]);
 
-
-
   useEffect(() => {
-
     if (isAnswer !== null) {
+      let answerAndWord = { word: currentWord, answer: isAnswer };
 
-      let answerAndWord = { "word": currentWord, "answer": isAnswer }
+      const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"));
 
-      const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
+      const userLocal = getStatisticsLocal[user.name];
 
-      const userLocal = getStatisticsLocal[user.name]
+      const diffLevelLocal = userLocal[user.difficultLevel];
 
-      const diffLevelLocal = userLocal[user.difficultLevel]
+      const wordsLevelLocal = diffLevelLocal[user.wordsLevel];
 
-      const wordsLevelLocal = diffLevelLocal[user.wordsLevel]
+      if (!wordsLevelLocal[stepCount]) wordsLevelLocal[stepCount] = [];
 
-      if (!wordsLevelLocal[stepCount]) wordsLevelLocal[stepCount] = []
+      const stepConstLocal = wordsLevelLocal[stepCount];
 
-      const stepConstLocal = wordsLevelLocal[stepCount]
+      stepConstLocal.push(answerAndWord);
 
-      stepConstLocal.push(answerAndWord)
-
-      let scoreTemp = 0
+      let scoreTemp = 0;
 
       for (const key in userLocal) {
-
         if (key === "60") {
           for (const key2 in userLocal[key]) {
-            console.log(`60`)
-            userLocal[key][key2].forEach(el => {
-              console.log(el.filter(el => el.answer).length)
-              scoreTemp += el.filter(el => el.answer).length
-            })
+            console.log(`60`);
+            userLocal[key][key2].forEach((el) => {
+              console.log(el.filter((el) => el.answer).length);
+              scoreTemp += el.filter((el) => el.answer).length;
+            });
           }
         }
         if (key === "40") {
           for (const key2 in userLocal[key]) {
-            console.log(`40`)
-            userLocal[key][key2].forEach(el => {
-              console.log(el.filter(el => el.answer).length * 2)
-              scoreTemp += el.filter(el => el.answer).length * 2
-            })
+            console.log(`40`);
+            userLocal[key][key2].forEach((el) => {
+              console.log(el.filter((el) => el.answer).length * 2);
+              scoreTemp += el.filter((el) => el.answer).length * 2;
+            });
           }
         }
         if (key === "20") {
           for (const key2 in userLocal[key]) {
-            console.log(`20`)
-            userLocal[key][key2].forEach(el => {
-              console.log(el.filter(el => el.answer).length * 3)
-              scoreTemp += el.filter(el => el.answer).length * 3
-            })
+            console.log(`20`);
+            userLocal[key][key2].forEach((el) => {
+              console.log(el.filter((el) => el.answer).length * 3);
+              scoreTemp += el.filter((el) => el.answer).length * 3;
+            });
           }
         }
       }
 
-      userLocal["score"] = scoreTemp
+      userLocal["score"] = scoreTemp;
 
-      localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal))
-
-
-
+      localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal));
     }
-    setIsAnswer(null)
-
+    setIsAnswer(null);
   }, [isAnswer]);
 
   useEffect(() => {
@@ -196,28 +183,33 @@ const PlayingField = ({ isSound, user, setUser, statistics }) => {
   }, [count]);
 
   const onHandleClickBtnNext = () => {
-    // if (count < words.length - 1) setCount(count + 1);
-    if (count < 2) setCount(count + 1);
+     if (count < words.length - 1) setCount(count + 1);
+   
     else {
       setIsLoading(true);
-      //  if (stepCount < arrWords.length) {
-      if (Number(stepCount) < 2) {
+        if (Number(stepCount) < arrWords.length) {      
         setIsLoading(true);
-        ModalNext(setStepCount, stepCount, setCount, wordsLevelLocal);
+        ModalNext(setStepCount, stepCount, setCount, wordsLevelLocal, language);
       } else {
         setIsLoading(true);
-        ModalNextLevel(level, setLevel, setStepCount, setUser, wordsLevelLocal);
+        ModalNextLevel(level, setLevel, setStepCount, setUser, wordsLevelLocal,language);
       }
     }
   };
 
   return (
     <>
-      <UserSetting user={user} setUser={setUser} score={score} />
+      <UserSetting
+        user={user}
+        setUser={setUser}
+        language={language}
+        score={score}
+      />
 
       {!isLoading ? (
         <div className="context">
           <ProgressBox
+            language={language}
             soundSecond={media[2]}
             percent={percent}
             setPercent={setPercent}
@@ -244,18 +236,26 @@ const PlayingField = ({ isSound, user, setUser, statistics }) => {
               isCheck={isCheck}
               onHandleClickBtnNext={onHandleClickBtnNext}
               wordRef={wordRef}
+              language={language}
             />
           </div>
         </div>
       ) : (
-          <img src={imgLoading}></img>
-        )}
+        <img src={imgLoading}></img>
+      )}
 
-      {arrWords ?
-        <StepsField media={media} arrWords={arrWords} count={count} stepCount={stepCount} statistics={wordsLevelLocal} />
-        :
+      {arrWords ? (
+        <StepsField
+          media={media}
+          language={language}
+          arrWords={arrWords}
+          count={count}
+          stepCount={stepCount}
+          statistics={wordsLevelLocal}
+        />
+      ) : (
         <></>
-      }
+      )}
       <div className="footer"></div>
     </>
   );
