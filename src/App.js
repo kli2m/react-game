@@ -7,6 +7,9 @@ import En from './language/En.json';
 
 
 const App = () => {
+
+  localStorage.getItem("statistics")? {} : localStorage.setItem("statistics", JSON.stringify({}))
+
   const [isStart, setIsStart] = useState(false);
   const [language,setLanguage] = useState(Ru);
 

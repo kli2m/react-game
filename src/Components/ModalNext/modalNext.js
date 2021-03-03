@@ -1,18 +1,19 @@
 import React from 'react';
 import { Modal, Space } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
 
-const ModalNext = (setStepCount,stepCount,setCount) => {
+const ModalNext = (setStepCount,stepCount,setCount,wordsLevelLocal) => {
 
     return (
         <Space>
             {Modal.confirm (
                 {
-                    title: `${stepCount} completed !!!`,
+                    title: `Step ${stepCount+1} completed !!!`,
                     content: (
-                    <div>  'Some descriptions'</div>
+                        <div>                   
+                    <div>Right : {wordsLevelLocal[stepCount].filter(e=>e.answer===true).length} Wrong: {wordsLevelLocal[stepCount].filter(e=>e.answer===false).length}</div>
+                    </div>
                     ),
                     okText:"Следующий Шаг",
                     cancelText:"Попробовать еще",

@@ -4,8 +4,15 @@ import "./WelcomForm.scss";
 
 import PlayingField from "../PlayingField/PlayingField";
 
+
 const WelcomForm = ({ language }) => {
+
+  const valueLocalStorage = useRef(localStorage.getItem("statistics"));
+
+  if (!valueLocalStorage.current) localStorage.setItem("statistics", JSON.stringify({}))
+
   const [user, setUser] = useState(null);
+  const [statistics, setStatistics] = useState(localStorage.getItem("statistics"))
   const [isSound, setIsSound] = useState(true);
 
   const { Text, Title } = Typography;
@@ -16,16 +23,47 @@ const WelcomForm = ({ language }) => {
 
     if (Object.values(user).every((e) => e !== undefined)) {
 
-      if (user.name.length > 2 && user.name.length < 15) {
+        const findUserLocal = JSON.parse(valueLocalStorage.current)
 
-        const getLocalSt = localStorage.getItem("statistics")
-        ? localStorage.setItem("statistics")
-        : null;
+        if (!findUserLocal[user.name]) {
+
+          const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
+
+          getStatisticsLocal[user.name] = {
+            score: 0,
+            [user.difficultLevel]: {
+              [user.wordsLevel]: []
+            }
+          }
+
+          localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal))
+
+          setStatistics(localStorage.getItem("statistics"))
+
+        } else {
+
+          const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
+
+          const userLocal = getStatisticsLocal[user.name]
+
+          if (!userLocal[user.difficultLevel]) userLocal[user.difficultLevel] = { [user.wordsLevel]: [] }
+
+          else {
+
+            const diffLevel = userLocal[user.difficultLevel]
+
+            if (!diffLevel[user.wordsLevel]) diffLevel[user.wordsLevel] = []
+
+          }
+
+          localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal))
+
+          setStatistics(Object.assign(getStatisticsLocal))
+
+        }
 
         setUser(values.user)
-      } else {
-        message.error('Количество символов в поле Ник должно быть от 3 до 15')
-      }
+      
     }
   };
 
@@ -36,8 +74,8 @@ const WelcomForm = ({ language }) => {
   return (
     <>
       <>
-        {user ? (
-          <PlayingField language={language} isSound={isSound} user={user} setUser={setUser} />
+        {user && statistics ? (
+          <PlayingField language={language} isSound={isSound} user={user} setUser={setUser} statistics={statistics} />
         ) : (
             <div className="letterSolver__settings">
               <Title level={3} className="letterSolver__start_game-title">

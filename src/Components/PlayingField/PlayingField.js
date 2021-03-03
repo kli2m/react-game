@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-
-  Typography,
-
-  Image,
-
-} from "antd";
+import { Typography, Image } from "antd";
 
 import "./PlayingField.scss";
 import getWordsApi2 from "../../utils/getWordsApi2";
@@ -14,7 +8,7 @@ import Word from "../Word/Word";
 import ProgressBox from "../ProgressBox/ProgressBox";
 import AnswerBox from "../AnswerBox/AnswerBox";
 import StepsField from "../StepsField/StepsField";
-import ModalNext from "../ModalNext/ModalNext";
+import ModalNext from "../ModalNext/modalNext";
 import ModalNextLevel from "../ModalNext/ModalNextLevel";
 import UserSetting from "../UserSetting/UserSetting";
 
@@ -25,22 +19,32 @@ import soundWrong from "../../assets/audio//wrong-answer.mp3";
 import soundSeconds from "../../assets/audio/seconds.mp3";
 import imgLoading from "../../assets/img/loading.gif";
 
-const PlayingField = ({ isSound, user, setUser }) => {
 
 
+const PlayingField = ({ isSound, user, setUser, statistics }) => {
 
-  const [level, setLevel] = useState(user.wordsLevel);
+  const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
+
+  const userLocal = getStatisticsLocal[user.name]
+
+  const userScore = userLocal[score]
+
+  const diffLevelLocal = userLocal[user.difficultLevel]
+
+  const wordsLevelLocal = diffLevelLocal[user.wordsLevel]
+
+
+  const [level, setLevel] = useState(Number(user.wordsLevel));
   const [arrWords, setArrWords] = useState(null);
-  const [stepCount, setStepCount] = useState(null);
+  const [stepCount, setStepCount] = useState(wordsLevelLocal.length);
   const [isLoading, setIsLoading] = useState(true);
   const [isCheck, setIsCheck] = useState(false);
   const [isAnswer, setIsAnswer] = useState(null);
-
+  const [score, setScore] = useState(userScore);
   const [words, setWords] = useState(null);
   const [currentWord, setCurrentWord] = useState(null);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(null);
   const [percent, setPercent] = useState(100);
-  //const [statistics, setStatistics] = useState(getLocalSt);
   const [media, setMedia] = useState([
     new Audio(soundRight),
     new Audio(soundWrong),
@@ -50,11 +54,7 @@ const PlayingField = ({ isSound, user, setUser }) => {
   const imageRef = useRef(null);
   const wordRef = useRef(null);
 
-  const { Text, Title } = Typography;
-
   async function loadWords(currentLevel) {
-    setIsLoading(true)
-
     const res = await getWordsApi2(currentLevel);
 
     const stepWordShuffle = res.map((step) => shuffle(step));
@@ -66,21 +66,85 @@ const PlayingField = ({ isSound, user, setUser }) => {
         return word;
       });
     });
-    console.log('await loaded')
     setArrWords(shuffleLetters);
   }
 
   useEffect(() => {
-    setIsLoading(true)
-    if (arrWords !== null) setWords(arrWords[stepCount]);
+    if (arrWords !== null) {
+      setWords(arrWords[stepCount]);
+      setStepCount(0);
+    }
   }, [arrWords]);
+
+
+
+  useEffect(() => {
+
+    if (isAnswer !== null) {
+
+      let answerAndWord = { "word": currentWord, "answer": isAnswer }
+
+      const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"))
+
+      const userLocal = getStatisticsLocal[user.name]
+
+      const diffLevelLocal = userLocal[user.difficultLevel]
+
+      const wordsLevelLocal = diffLevelLocal[user.wordsLevel]
+
+      if (!wordsLevelLocal[stepCount]) wordsLevelLocal[stepCount] = []
+
+      const stepConstLocal = wordsLevelLocal[stepCount]
+
+      stepConstLocal.push(answerAndWord)
+
+      let scoreTemp = 0
+
+      for (const key in userLocal) {
+
+        if (key === "60") {
+          for (const key2 in userLocal[key]) {
+            console.log(`60`)
+            userLocal[key][key2].forEach(el => {
+              console.log(el.filter(el => el.answer).length)
+              scoreTemp += el.filter(el => el.answer).length
+            })
+          }
+        }
+        if (key === "40") {
+          for (const key2 in userLocal[key]) {
+            console.log(`40`)
+            userLocal[key][key2].forEach(el => {
+              console.log(el.filter(el => el.answer).length * 2)
+              scoreTemp += el.filter(el => el.answer).length * 2
+            })
+          }
+        }
+        if (key === "20") {
+          for (const key2 in userLocal[key]) {
+            console.log(`20`)
+            userLocal[key][key2].forEach(el => {
+              console.log(el.filter(el => el.answer).length * 3)
+              scoreTemp += el.filter(el => el.answer).length * 3
+            })
+          }
+        }
+      }
+
+      userLocal["score"] = scoreTemp
+
+      localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal))
+
+
+
+    }
+    setIsAnswer(null)
+
+  }, [isAnswer]);
 
   useEffect(() => {
     setIsLoading(true);
-    setCurrentWord(null)
-    setCount(0);
-    setStepCount(0);
-    loadWords(level);       
+    loadWords(level);
   }, [level]);
 
   const onCheck = useCallback(
@@ -96,29 +160,23 @@ const PlayingField = ({ isSound, user, setUser }) => {
         imageRef.current.classList.add("noActive");
         wordRef.current.classList.add("noActive");
       }
+
       setIsCheck(true);
     },
     [currentWord]
   );
 
   useEffect(() => {
-    console.log(`currentWord`);
-    console.log(currentWord);
-    if (currentWord !== null) setIsLoading(false)  
+    if (currentWord !== null) setIsLoading(false);
   }, [currentWord]);
 
   useEffect(() => {
-    console.log(`words`);
-    console.log(words);
-    if (words !== null) {    
-      setCurrentWord(words[count]);
+    if (words !== null) {
+      setCount(0);
     }
   }, [words]);
 
-
   useEffect(() => {
-    console.log(`stepCount`);
-    console.log(stepCount);
     if (stepCount !== null && arrWords !== null) {
       setWords(arrWords[stepCount]);
       setCount(0);
@@ -126,17 +184,15 @@ const PlayingField = ({ isSound, user, setUser }) => {
   }, [stepCount]);
 
   useEffect(() => {
-    console.log(`count`);
-    console.log(count);
+    if (count === null) return;
     if (words === null) return;
     setPercent(100);
     setIsCheck(false);
     setCurrentWord(words[count]);
-    setIsAnswer(false);
     imageRef.current ? imageRef.current.classList.remove("noActive") : null;
     wordRef.current ? wordRef.current.classList.remove("noActive") : null;
     imageRef.current ? imageRef.current.classList.remove("allRight") : null;
-    wordRef.current ? wordRef.current.classList.remove("allRight") : null;  
+    wordRef.current ? wordRef.current.classList.remove("allRight") : null;
   }, [count]);
 
   const onHandleClickBtnNext = () => {
@@ -145,59 +201,62 @@ const PlayingField = ({ isSound, user, setUser }) => {
     else {
       setIsLoading(true);
       //  if (stepCount < arrWords.length) {
-      if (stepCount < 2) {
+      if (Number(stepCount) < 2) {
         setIsLoading(true);
-        ModalNext(setStepCount, stepCount, setCount);
+        ModalNext(setStepCount, stepCount, setCount, wordsLevelLocal);
       } else {
         setIsLoading(true);
-        ModalNextLevel(level, setLevel, setStepCount);
+        ModalNextLevel(level, setLevel, setStepCount, setUser, wordsLevelLocal);
       }
     }
   };
 
   return (
     <>
-      {!isLoading ? (
-        <>
+      <UserSetting user={user} setUser={setUser} score={score} />
 
-          <UserSetting user={user} setUser={setUser} />
-          <div className="context">
-            <ProgressBox
-              soundSecond={media[2]}
-              percent={percent}
-              setPercent={setPercent}
-              difficultLevel={user.difficultLevel}
-              isCheck={isCheck}
-              onCheck={onCheck}
-            />
-            <div className="context-playing_field">
-              <div ref={imageRef}>
-                <Image
-                  className="context_image"
-                  alt="Loading"
-                  fallback={`Error loading file ${currentWord.image}`}
-                  width="300px"
-                  height="200px"
-                  src={currentWord.image}
-                ></Image>
-              </div>
-              <AnswerBox currentWord={currentWord} isCheck={isCheck} />
-              <Word
-                className="context_word"
-                wordSplit={currentWord.letter}
-                onCheck={onCheck}
-                isCheck={isCheck}
-                onHandleClickBtnNext={onHandleClickBtnNext}
-                wordRef={wordRef}
-              />
+      {!isLoading ? (
+        <div className="context">
+          <ProgressBox
+            soundSecond={media[2]}
+            percent={percent}
+            setPercent={setPercent}
+            difficultLevel={user.difficultLevel}
+            isCheck={isCheck}
+            onCheck={onCheck}
+          />
+          <div className="context-playing_field">
+            <div ref={imageRef}>
+              <Image
+                className="context_image"
+                alt="Loading"
+                fallback={`Error loading file ${currentWord.image}`}
+                width="300px"
+                height="200px"
+                src={currentWord.image}
+              ></Image>
             </div>
+            <AnswerBox currentWord={currentWord} isCheck={isCheck} />
+            <Word
+              className="context_word"
+              wordSplit={currentWord.letter}
+              onCheck={onCheck}
+              isCheck={isCheck}
+              onHandleClickBtnNext={onHandleClickBtnNext}
+              wordRef={wordRef}
+            />
           </div>
-          <StepsField media={media} arrWords={arrWords} count={count} />
-          <div className="footer"></div>
-        </>
+        </div>
       ) : (
           <img src={imgLoading}></img>
         )}
+
+      {arrWords ?
+        <StepsField media={media} arrWords={arrWords} count={count} stepCount={stepCount} statistics={wordsLevelLocal} />
+        :
+        <></>
+      }
+      <div className="footer"></div>
     </>
   );
 };

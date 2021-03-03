@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Progress, Tooltip } from "antd";
+import React, {  useEffect } from "react";
+import { Progress  } from "antd";
 import "./ProgressBox.scss";
 
 const ProgressBox = ({
@@ -10,6 +10,7 @@ const ProgressBox = ({
   isCheck,
   onCheck,
 }) => {
+
   useEffect(() => {
     if (!isCheck) {
       if (percent > 1) {
