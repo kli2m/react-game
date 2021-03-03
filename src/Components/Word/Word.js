@@ -9,7 +9,7 @@ const Word = ({
   isCheck,
   onHandleClickBtnNext,
   wordRef,
-  language
+  language,
 }) => {
   const [letters, setLetters] = useState(wordSplit);
 
@@ -59,7 +59,7 @@ const Word = ({
       </div>
       {isCheck ? (
         <Button className="context_btn_next" onClick={onHandleClickBtnNext}>
-         {language.word_page_btn_next}
+          {language.word_page_btn_next}
         </Button>
       ) : (
         <Button className="context_btn_check" onClick={() => onCheck(letters)}>

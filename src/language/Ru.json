@@ -50,5 +50,6 @@
     "modal_next_page_content_right": "Верно: ",
     "modal_next_page_content_wrong": "Неправильно: ",
     "modal_next_page_btn_next": "Следующий шаг",
-    "modal_next_page_btn_repeat": "Повторить"
+    "modal_next_page_btn_repeat": "Повторить",
+    "modal_exit_page_text": "Вы действительно хотите выйти!"
 }

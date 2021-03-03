@@ -1,5 +1,5 @@
-import React, {  useEffect } from "react";
-import { Progress  } from "antd";
+import React, { useEffect } from "react";
+import { Progress } from "antd";
 import "./ProgressBox.scss";
 
 const ProgressBox = ({
@@ -9,9 +9,8 @@ const ProgressBox = ({
   difficultLevel,
   isCheck,
   onCheck,
-  language
+  language,
 }) => {
-
   useEffect(() => {
     if (!isCheck) {
       if (percent > 1) {
@@ -35,7 +34,9 @@ const ProgressBox = ({
         percent={percent}
         format={(percent) =>
           percent > 1
-            ? `${Math.ceil((percent / 100) * difficultLevel)} ${language.progress_page_seconds_text}`
+            ? `${Math.ceil((percent / 100) * difficultLevel)} ${
+                language.progress_page_seconds_text
+              }`
             : `${language.progress_page_seconds_lose}`
         }
         strokeColor="#2A9C50"

@@ -95,27 +95,21 @@ const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
       for (const key in userLocal) {
         if (key === "60") {
           for (const key2 in userLocal[key]) {
-            console.log(`60`);
             userLocal[key][key2].forEach((el) => {
-              console.log(el.filter((el) => el.answer).length);
               scoreTemp += el.filter((el) => el.answer).length;
             });
           }
         }
         if (key === "40") {
           for (const key2 in userLocal[key]) {
-            console.log(`40`);
             userLocal[key][key2].forEach((el) => {
-              console.log(el.filter((el) => el.answer).length * 2);
               scoreTemp += el.filter((el) => el.answer).length * 2;
             });
           }
         }
         if (key === "20") {
           for (const key2 in userLocal[key]) {
-            console.log(`20`);
             userLocal[key][key2].forEach((el) => {
-              console.log(el.filter((el) => el.answer).length * 3);
               scoreTemp += el.filter((el) => el.answer).length * 3;
             });
           }
@@ -183,16 +177,22 @@ const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
   }, [count]);
 
   const onHandleClickBtnNext = () => {
-     if (count < words.length - 1) setCount(count + 1);
-   
+    if (count < words.length - 1) setCount(count + 1);
     else {
       setIsLoading(true);
-        if (Number(stepCount) < arrWords.length) {      
+      if (Number(stepCount) < arrWords.length) {
         setIsLoading(true);
         ModalNext(setStepCount, stepCount, setCount, wordsLevelLocal, language);
       } else {
         setIsLoading(true);
-        ModalNextLevel(level, setLevel, setStepCount, setUser, wordsLevelLocal,language);
+        ModalNextLevel(
+          level,
+          setLevel,
+          setStepCount,
+          setUser,
+          wordsLevelLocal,
+          language
+        );
       }
     }
   };

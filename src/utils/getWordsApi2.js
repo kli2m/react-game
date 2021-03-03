@@ -2,12 +2,11 @@ const getWordsSpeakit2 = async (group) => {
   try {
     let requests = new Array(30)
       .fill("")
-      .map((page,i) =>
+      .map((page, i) =>
         fetch(
           `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${i}`
         )
       );
-    console.log(requests);
     let promise = await Promise.all(requests)
       .then((responses) => {
         for (let response of responses) {

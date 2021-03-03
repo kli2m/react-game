@@ -50,13 +50,9 @@
     "modal_next_page_content_right": "Right: ",
     "modal_next_page_content_wrong": "Wrong: ",
     "modal_next_page_btn_next": "Next step",
-    "modal_next_page_btn_repeat": "Try again"
+    "modal_next_page_btn_repeat": "Try again",
 
-
-
-
-
-
+    "modal_exit_page_text": "Do you really want to leave!"
 
     
 }

@@ -18,25 +18,13 @@ module.exports = (env, options) => {
     },
     devServer: {
       contentBase: path.join(__dirname, "/dist"),
-      // compress: true,
+    
       port: 9000,
-      // watchContentBase: true,
-      // progress: true,
-      // overlay: true,
-      // open: true,
+     
     },
     module: {
       rules: [
-        // {
-        //   enforce: "pre",
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   loader: "eslint-loader",
-        //   options: {
-        //     fix: true,
-        //   },
-        // },
-
+      
         {
           test: /\.m?js$/,
           exclude: /(node_modules|bower_components)/,
@@ -53,11 +41,11 @@ module.exports = (env, options) => {
           test: /\.(png|jpe?g|gif|svg|mp3)$/i,
           exclude: [/node_modules/],
           loader: "file-loader",
-          // options: {
-          //   name: "assets/[contenthash].[ext]",
-          //   outputPath: "assets/",
-          //   publicPath: "assets/",
-          // },
+          options: {
+            name: "assets/[contenthash].[ext]",
+            outputPath: "assets/",
+            publicPath: "assets/",
+          },
         },
         {
           test: /\.html$/i,
@@ -70,24 +58,24 @@ module.exports = (env, options) => {
       new HtmlWebpackPlugin({
         template: "./src/index.html",
         inject: true,
-        // minify: {
-        //   removeComments: true,
-        //   collapseWhitespace: true,
-        //   removeAttributeQuotes: true,
-        // },
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+        },
       }),
       new MiniCssExtractPlugin({
         filename: "style.css",
       }),
-      // new CopyPlugin({
-      //   patterns: [
-      //     { from: "./src/assets/img", to: "assets/img" },
-      //     { from: "./src/assets/audio", to: "assets/audio" },
-      //   ],
-      //   options: {
-      //     concurrency: 100,
-      //   },
-      // }),
+      new CopyPlugin({
+        patterns: [
+          { from: "./src/assets/img", to: "assets/img" },
+          { from: "./src/assets/audio", to: "assets/audio" },
+        ],
+        options: {
+          concurrency: 100,
+        },
+      }),
     ],
   };
   return config;

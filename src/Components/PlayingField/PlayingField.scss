@@ -1,42 +1,42 @@
-@media screen and (max-width: 768px){
-.context-progress_bar {
-    width: 50px;
-    height: 50px;
- margin: 10px 0;
-}
-.context{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    flex-wrap: wrap;
-    align-items: center;
-}
-.context-playing_field{
-    width: 100%;
-}
+@media screen and (max-width: 768px) {
+    .context-progress_bar {
+        width: 50px;
+        height: 50px;
+        margin: 10px 0;
+    }
+    .context {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .context-playing_field {
+        width: 100%;
+    }
 }
 
-@media screen and (min-width: 768px){
-    .context-progress_bar{
+@media screen and (min-width: 768px) {
+    .context-progress_bar {
         width: 100px;
         height: 100px;
         margin-top: 100px;
-        margin-bottom: 20px;      
+        margin-bottom: 20px;
     }
-    .context{
+    .context {
         display: flex;
-    flex-direction: row;
-    justify-content:center;
-    text-align: center;
-    width: 100%;
-    flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        flex-wrap: wrap;
     }
-    .context-playing_field{
+    .context-playing_field {
         width: 550px;
     }
-    }
+}
 
 .playingField {
     border: 3px solid #99b097;
@@ -49,58 +49,60 @@
     border-radius: 5px;
 }
 
-.cells{
+.cells {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.context_image{
+.context_image {
     border-radius: 10px;
-   
 }
 
-.context-playing_field{
+.context-playing_field {
     display: flex;
-flex-direction: column;
-justify-content: space-between;
-align-items: center;
-margin: 10px;
-padding: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
 
-height: 500px;
+    height: 500px;
 }
 
 .context_btn_next .context_btn_check {
     margin: 20px 0;
 }
 
-.noActive{
+.noActive {
     pointer-events: none;
-    box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75) ;
-    -webkit-box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75) ;
-    -moz-box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75) ;
+    box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75);
+    -webkit-box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75);
+    -moz-box-shadow: 0px 0px 9px 5px rgba(231, 70, 70, 0.75);
 
     border: 2px solid red;
-    animation: 0.01s tremor ease-out ;
+    animation: 0.01s tremor ease-out;
 }
 
-.allRight{
+.allRight {
     pointer-events: none;
-    box-shadow: 0px 0px 9px 5px rgba(77, 255, 60, 0.75) ;
-    -webkit-box-shadow: 0px 0px 9px 5px rgba(77, 255, 60, 0.75) ;
-    -moz-box-shadow: 0px 0px 9px 5px rgba(77, 255, 60, 0.75) ;
+    box-shadow: 0px 0px 9px 5px rgba(77, 255, 60, 0.75);
+    -webkit-box-shadow: 0px 0px 9px 5px rgba(77, 255, 60, 0.75);
+    -moz-box-shadow: 0px 0px 9px 5px rgba(77, 255, 60, 0.75);
 
     border: 2px solid rgba(77, 255, 60, 0.75);
 }
 
 @keyframes tremor {
-    0% , 25% {
+    0%,
+    25% {
         left: -0.5px;
         transform: translateX(-4%);
     }
-    50%, 100% { left: 0.5px;
-        transform: translateX(4%);  
+    50%,
+    100% {
+        left: 0.5px;
+        transform: translateX(4%);
+    }
 }
-}   

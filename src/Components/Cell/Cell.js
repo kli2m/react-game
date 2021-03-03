@@ -1,17 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import './Cell.scss'
+import "./Cell.scss";
 
-const Cell = ({valueCell,provided}) => {
-
+const Cell = ({ valueCell, provided }) => {
   return (
-    <div className="cell"
-     ref={provided.innerRef}
-    {...provided.draggableProps}
-    {...provided.dragHandleProps}
-   
+    <div
+      className="cell"
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
     >
-        {valueCell}
+      {valueCell}
     </div>
   );
 };

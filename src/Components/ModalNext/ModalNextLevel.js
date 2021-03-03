@@ -4,12 +4,18 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { confirm } = Modal;
 
-const ModalNextLevel = (level, setLevel, setStepCount, setUser, wordsLevelLocal) => {
+const ModalNextLevel = (
+  level,
+  setLevel,
+  setStepCount,
+  setUser,
+  wordsLevelLocal
+) => {
   return (
     <Space>
       {Modal.confirm({
         title: `${level + 1} completed !!!`,
-        content: <div> 'Ваш score равен ?? из возможного ??'</div>,
+        content: <div> Finish </div>,
         okText: ` ${
           level < 2
             ? "Перейти на следующий Уровень cложности слов"
