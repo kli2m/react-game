@@ -1,12 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  Tooltip,
-  Switch,
-  Button,
   Typography,
-  Form,
-  Image,
-  Progress,
 } from "antd";
 import "./AnswerBox.scss";
 

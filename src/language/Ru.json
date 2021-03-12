@@ -41,9 +41,10 @@
     "steps_page_item_wrong": "Ошибок: ",
     "steps_page_volume_title": "Контоль звука",
 
+    "user_settings_page_player":"Игрок: ",
     "user_settings_page_score": "Баллы: ",
-    "user_settings_page_show_statistics": "Показать статистику",
-    "user_settings_page_exit": "Выйти в главное меню",
+    "user_settings_page_show_statistics": "Cтатистика",
+    "user_settings_page_exit": "Выйти",
 
     "modal_next_page_title_step": "Шаг ",
     "modal_next_page_title_completed": "завершен ",

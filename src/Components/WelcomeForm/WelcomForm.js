@@ -14,15 +14,13 @@ import "./WelcomForm.scss";
 import PlayingField from "../PlayingField/PlayingField";
 
 const WelcomForm = ({ language }) => {
+
   const valueLocalStorage = useRef(localStorage.getItem("statistics"));
 
   if (!valueLocalStorage.current)
     localStorage.setItem("statistics", JSON.stringify({}));
 
-  const [user, setUser] = useState(null);
-  const [statistics, setStatistics] = useState(
-    localStorage.getItem("statistics")
-  );
+  const [user, setUser] = useState(null); 
   const [isSound, setIsSound] = useState(true);
 
   const { Text, Title } = Typography;
@@ -47,7 +45,7 @@ const WelcomForm = ({ language }) => {
 
         localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal));
 
-        setStatistics(localStorage.getItem("statistics"));
+       
       } else {
         const getStatisticsLocal = JSON.parse(
           localStorage.getItem("statistics")
@@ -65,7 +63,7 @@ const WelcomForm = ({ language }) => {
 
         localStorage.setItem("statistics", JSON.stringify(getStatisticsLocal));
 
-        setStatistics(Object.assign(getStatisticsLocal));
+        
       }
 
       setUser(values.user);
@@ -79,13 +77,12 @@ const WelcomForm = ({ language }) => {
   return (
     <>
       <>
-        {user && statistics ? (
+        {user ? (
           <PlayingField
             language={language}
             isSound={isSound}
             user={user}
-            setUser={setUser}
-            statistics={statistics}
+            setUser={setUser}            
           />
         ) : (
           <div className="letterSolver__settings">

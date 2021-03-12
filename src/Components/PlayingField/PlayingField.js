@@ -11,7 +11,6 @@ import StepsField from "../StepsField/StepsField";
 import ModalNext from "../ModalNext/modalNext";
 import ModalNextLevel from "../ModalNext/ModalNextLevel";
 import UserSetting from "../UserSetting/UserSetting";
-
 const RS_LANG_DATA =
   "https://raw.githubusercontent.com/kli2m/rslang-data/master/";
 import soundRight from "../../assets/audio/right_answer.mp3";
@@ -19,7 +18,7 @@ import soundWrong from "../../assets/audio//wrong-answer.mp3";
 import soundSeconds from "../../assets/audio/seconds.mp3";
 import imgLoading from "../../assets/img/loading.gif";
 
-const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
+const PlayingField = ({ isSound, user, setUser, language }) => {
   const getStatisticsLocal = JSON.parse(localStorage.getItem("statistics"));
 
   const userLocal = getStatisticsLocal[user.name];
@@ -29,6 +28,8 @@ const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
   const diffLevelLocal = userLocal[user.difficultLevel];
 
   const wordsLevelLocal = diffLevelLocal[user.wordsLevel];
+
+  console.log(wordsLevelLocal.length)
 
   const [level, setLevel] = useState(Number(user.wordsLevel));
   const [arrWords, setArrWords] = useState(null);
@@ -68,7 +69,7 @@ const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
   useEffect(() => {
     if (arrWords !== null) {
       setWords(arrWords[stepCount]);
-      setStepCount(0);
+
     }
   }, [arrWords]);
 
@@ -208,41 +209,46 @@ const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
 
       {!isLoading ? (
         <div className="context">
-          <ProgressBox
-            language={language}
-            soundSecond={media[2]}
-            percent={percent}
-            setPercent={setPercent}
-            difficultLevel={user.difficultLevel}
-            isCheck={isCheck}
-            onCheck={onCheck}
-          />
+
           <div className="context-playing_field">
-            <div ref={imageRef}>
-              <Image
-                className="context_image"
-                alt="Loading"
-                fallback={`Error loading file ${currentWord.image}`}
-                width="300px"
-                height="200px"
-                src={currentWord.image}
-              ></Image>
+            <div className="context-playing_field-view">
+              <ProgressBox
+                language={language}
+                soundSecond={media[2]}
+                percent={percent}
+                setPercent={setPercent}
+                difficultLevel={user.difficultLevel}
+                isCheck={isCheck}
+                onCheck={onCheck}
+              />
+              <div ref={imageRef}>
+                <Image
+                  className="context_image"
+                  alt="Loading"
+                  fallback={`Error loading file ${currentWord.image}`}
+                  width="300px"
+                  height="200px"
+                  src={currentWord.image}
+                ></Image>
+              </div>
             </div>
-            <AnswerBox currentWord={currentWord} isCheck={isCheck} />
-            <Word
-              className="context_word"
-              wordSplit={currentWord.letter}
-              onCheck={onCheck}
-              isCheck={isCheck}
-              onHandleClickBtnNext={onHandleClickBtnNext}
-              wordRef={wordRef}
-              language={language}
-            />
+            <div className="context-playing_field-touch">
+              <AnswerBox currentWord={currentWord} isCheck={isCheck} />
+              <Word
+                className="context_word"
+                wordSplit={currentWord.letter}
+                onCheck={onCheck}
+                isCheck={isCheck}
+                onHandleClickBtnNext={onHandleClickBtnNext}
+                wordRef={wordRef}
+                language={language}
+              />
+            </div>
           </div>
         </div>
       ) : (
-        <img src={imgLoading}></img>
-      )}
+          <img src={imgLoading}></img>
+        )}
 
       {arrWords ? (
         <StepsField
@@ -254,8 +260,8 @@ const PlayingField = ({ isSound, user, setUser, statistics, language }) => {
           statistics={wordsLevelLocal}
         />
       ) : (
-        <></>
-      )}
+          <></>
+        )}
       <div className="footer"></div>
     </>
   );

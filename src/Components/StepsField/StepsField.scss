@@ -1,19 +1,24 @@
-.steps__field{
-    background-color: #7FE09F;
-    width: 20%;
-    position: absolute;
-    height: 100vh;
-    right: 0;
-    border-left: 1px solid #2A9C50;
-    display: flex;
-flex-direction: column;
-justify-content: space-between;
-text-align: center;
+@media screen and (max-width: 768px)  {
+    .steps__field{
+        display:none;
+    }
 }
-.steps__field-title{
-    height: 10%;
-    border-bottom: 1px solid #2A9C50;
+
+@media screen and (min-width: 768px)  {
+    .steps__field{
+        background-color: #7FE09F;
+        width: 20%;
+        position: absolute;
+        height: 100vh;
+        right: 0;
+        border-left: 1px solid #2A9C50;
+        display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    }
 }
+
 .steps__field-context{
     display: flex;
     flex-direction: row;
@@ -22,6 +27,7 @@ text-align: center;
     overflow: scroll;
     padding: 10%;
 }
+
 .steps__field-context-item{
     width: 70px;
     height: 70%;

@@ -6,13 +6,18 @@ import {
   Typography,
   Form,
   Progress,
+  Modal,
   Collapse,
+  Space
 } from "antd";
 import "./App.scss";
 import WelcomForm from "./Components/WelcomeForm/WelcomForm";
+import ModalInstruction from "./Components/ModalNext/ModalInstruction"
 import Ru from "./language/Ru.json";
 import En from "./language/En.json";
 import imgGit from "./assets/img/github.png";
+
+const {info}=Modal
 
 const App = () => {
   localStorage.getItem("statistics")
@@ -28,7 +33,7 @@ const App = () => {
     setIsStart(true);
   };
 
-  const fullScrenn = () => {
+  const fullScreen = () => {
     const elem = elem || document.documentElement;
 
     if (
@@ -74,7 +79,7 @@ const App = () => {
         </Tooltip>
         <div
           className="letterSolver__wrapper-header-btn_full_screen"
-          onClick={fullScrenn}
+          onClick={fullScreen}
         >
           F11
         </div>
@@ -90,12 +95,21 @@ const App = () => {
           <Title level={4} className="letterSolver__start_game-description">
             <Text strong>{language.main_page_phrase}</Text>
           </Title>
-          <Collapse accordion bordered={false} ghost="true" forceRender="true">
-            <Panel header={language.main_page_collapse_panel_header}>
+
+          <Button
+            className="letterSolver__start_game-btn_instruction"
+            onClick={()=> ModalInstruction(language)}            
+          >
+           {language.main_page_collapse_panel_header}
+          </Button>
+
+          {/* <Collapse accordion bordered={false} ghost="true" forceRender="true">
+            <Modal.info header={language.main_page_collapse_panel_header}>
               <p>{language.main_page_collapse_panel_text}</p>
               <div>{language.main_page_collapse_panel_text_context}</div>
-            </Panel>
-          </Collapse>
+            </Modal.info>
+          </Collapse> */}
+
           <Button
             className="letterSolver__start_game-btn"
             onClick={startGame}

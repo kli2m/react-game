@@ -17,10 +17,10 @@ module.exports = (env, options) => {
       filename: "index.js",
     },
     devServer: {
+      inline: false,
       contentBase: path.join(__dirname, "/dist"),
-    
-      port: 9000,
-     
+      compress: true,
+      port: 9000,     
     },
     module: {
       rules: [
@@ -71,10 +71,7 @@ module.exports = (env, options) => {
         patterns: [
           { from: "./src/assets/img", to: "assets/img" },
           { from: "./src/assets/audio", to: "assets/audio" },
-        ],
-        options: {
-          concurrency: 100,
-        },
+        ],       
       }),
     ],
   };

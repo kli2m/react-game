@@ -3,6 +3,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Tooltip, Switch, Button, Typography, Form, Image } from "antd";
 import Cell from "../Cell/Cell";
 
+import './Word.scss'
+
 const Word = ({
   wordSplit,
   onCheck,

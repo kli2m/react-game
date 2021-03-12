@@ -41,9 +41,10 @@
     "steps_page_item_wrong": "Wrong: ",
     "steps_page_volume_title": "Volume control",
 
+    "user_settings_page_player":"Player: ",
     "user_settings_page_score": "Score: ",
-    "user_settings_page_show_statistics": "Show statistics",
-    "user_settings_page_exit": "Exit to the main menu",
+    "user_settings_page_show_statistics": "Statistics",
+    "user_settings_page_exit": "Exit",
 
     "modal_next_page_title_step": "Step ",
     "modal_next_page_title_completed": "completed ",

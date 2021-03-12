@@ -1,42 +1,4 @@
-@media screen and (max-width: 768px) {
-    .context-progress_bar {
-        width: 50px;
-        height: 50px;
-        margin: 10px 0;
-    }
-    .context {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        width: 100%;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-    .context-playing_field {
-        width: 100%;
-    }
-}
 
-@media screen and (min-width: 768px) {
-    .context-progress_bar {
-        width: 100px;
-        height: 100px;
-        margin-top: 100px;
-        margin-bottom: 20px;
-    }
-    .context {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        text-align: center;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .context-playing_field {
-        width: 550px;
-    }
-}
 
 .playingField {
     border: 3px solid #99b097;
@@ -65,10 +27,16 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 10px;
     padding: 10px;
-
     height: 500px;
+    width: 90%;
+}
+
+.context-playing_field-view{
+    display: flex;
+flex-direction: row;
+justify-content: space-between;
+width: 100%;
 }
 
 .context_btn_next .context_btn_check {
@@ -104,5 +72,41 @@
     100% {
         left: 0.5px;
         transform: translateX(4%);
+    }
+}
+
+
+@media screen and (max-width: 768px) {   
+    .context {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .context-playing_field {      
+        height:70%;
+        width: 100%;
+    }
+    .context-playing_field-view{
+        align-items: center;
+        flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .context {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .context-playing_field {
+        width: 550px;
     }
 }

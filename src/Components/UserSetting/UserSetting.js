@@ -15,19 +15,23 @@ const UserSetting = ({ user, setUser, language }) => {
 
   return (
     <div className="user_setting">
+      <div className="user_setting-block_view">
       <Title level={5}>
-        <Text strong>{user.name}</Text>
+        <Text strong>{language.user_settings_page_player}{user.name}</Text>
       </Title>
       <div>
         {language.user_settings_page_score}{" "}
         {userLocal["score"] ? userLocal["score"] : "0"}
       </div>
-      <Button onClick={Statistics}>
-        {language.user_settings_page_show_statistics}у
+      </div>
+      <div className="user_setting-block_btn">
+      <Button className="user_setting-btn_statistics" onClick={Statistics}>
+        {language.user_settings_page_show_statistics}
       </Button>
-      <Button onClick={() => confirmAnswer(setUser, language)}>
+      <Button className="user_setting-btn_exit" onClick={() => confirmAnswer(setUser, language)}>
         {language.user_settings_page_exit}
       </Button>
+      </div>
     </div>
   );
 };

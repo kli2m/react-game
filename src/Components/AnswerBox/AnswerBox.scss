@@ -1,4 +1,13 @@
 .context_answer {
     height: 50px;
     user-select: none;
+    margin: 50px 0;
+}
+
+@media screen and (max-width: 768px) {  
+    .context_answer {
+       
+        margin: 10px 0;
+    }
+
 }

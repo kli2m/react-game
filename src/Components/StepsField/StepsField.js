@@ -24,6 +24,10 @@ const StepsField = ({
     setInputValue(value);
   };
 
+    let positionStepsField="";
+    if(document.documentElement.clientWidth<"768") positionStepsField="horizontal"
+    else positionStepsField="vertical"
+
   return (
     <div className="steps__field">
       <div className="steps__field-title">
@@ -32,7 +36,7 @@ const StepsField = ({
         </Title>
       </div>
       <div className="steps__field-context">
-        <Steps direction="vertical" current={stepCount}>
+        <Steps className="steps__field-context-steps" direction={positionStepsField}  current={stepCount}>
           {arrWords.map((el, i, arr) => {
             if (i < stepCount)
               return (
@@ -51,7 +55,7 @@ const StepsField = ({
                 <Step
                   key={arr.length + i}
                   title={`${language.steps_page_item_title} ${i + 1}`}
-                  description={`${count}/20`}
+                  description={`${count+1}/20`}
                 />
               );
             else
