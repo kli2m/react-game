@@ -1,0 +1,83 @@
+*{
+    margin: 0;
+    padding: 0;   
+}
+
+@media screen and (max-width: 768px)  {
+    .letterSolver__wrapper-header-btn_full_screen{
+        display: none;
+    }
+    .letterSolver__start_game-description{
+        width: 80%;
+        font-size: 1em;
+    }
+}
+
+
+.letterSolver__wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a7eabd;
+}
+
+.letterSolver__wrapper-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px 10px 100px;
+}
+
+.letterSolver__main {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.letterSolver__start_game {
+    border: 4px solid blueviolet;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.letterSolver__wrapper-start_game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+}
+.letterSolver__wrapper-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-bottom: 10px;
+}
+
+.letterSolver__wrapper-header-btn_full_screen {
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    border: 1px solid darkgreen;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    width: 45px;
+    height: 25px;
+    background-color: rgba(77, 255, 60, 0.75);
+    &:hover {
+        background-color: springgreen;
+    }
+}
+
+.footer_item {
+    width: 100px;
+    height: 50px;
+}

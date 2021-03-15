@@ -1,0 +1,59 @@
+{
+    "main_page_title": "Solved letters",
+    "main_page_tooltip_title": "Click to change language",
+    "main_page_phrase": "Training improves your listening comprehension in English.",
+    "main_page_collapse_panel_header": "Click to read instruction...",
+    "main_page_collapse_panel_text": "Instruction...",
+    "main_page_collapse_panel_text_context":"The rules of the game are very simple. You need to collect as quickly as possible a word from the available letters of the English alphabet, changing the order of the letters. An approximate word clue lies in the provided image above the letter combination. As soon as you collect the word, you must quickly click on the Check button, depending on the correct or incorrect composition of the letters, the account will (will not) be replenished with game points. The difficulty level is determined before the start of the game: Easy - 60 seconds are given for an answer, each guessed word brings 1 point; Normal - 40 seconds are given to answer, each guessed word is worth 2 points; Hard - 20 seconds are given to answer, each guessed word is worth 3 points; The text bank of the 'Letter Generator' game is not perfect, but nevertheless, this game will still enrich the vocabulary of English words and will delight you with new discoveries. Enjoy your passage at any time!",
+    "main_page_btn_start": "Click to start",
+    "welcom_page_title": "Set initial values",
+    "welcom_page_label_name": "Nick:",
+    "welcom_page_placeholder_name": "Enter nick...",
+    "welcom_page_message_name": "Enter correct Nick",
+    "welcom_page_label_difficult_level": "Difficult Level",
+    "welcom_page_placeholder_difficult_level": "Change difficult level...",
+    "welcom_page_placeholder_difficult_level_easy": "EASY",
+    "welcom_page_placeholder_difficult_level_normal": "NORMAL",
+    "welcom_page_placeholder_difficult_level_hard": "HARD",
+    "welcom_page_label_word_difficult_level": "Level difficult words",
+    "welcom_page_placeholder_word_difficult_level": "Change level difficult words...",
+    "welcom_page_placeholder_word_difficult_level_first": "FIRST",
+    "welcom_page_placeholder_word_difficult_level_second": "SECOND",
+    "welcom_page_placeholder_word_difficult_level_third": "THIRD",
+    "welcom_page_placeholder_word_difficult_level_fourth": "FOURTH",
+    "welcom_page_placeholder_word_difficult_level_fifth": "FIFTH",
+    "welcom_page_placeholder_word_difficult_level_sixth": "SIXTH",
+    "welcom_page_label_sound": "Playing sound:",
+    "welcom_page_label_sound_on": "ON",
+    "welcom_page_label_sound_off": "OFF",
+    "welcom_page_tooltip_label_sound": "Click to on/off for play sound",
+    "welcom_page_btn_next": "Next",
+
+    "progress_page_seconds_text": "seconds",
+    "progress_page_seconds_lose": "You lose!",
+
+    "word_page_btn_next": "Next",
+    "word_page_btn_check": "Check",
+
+    "steps_page_title": "Steps: ",
+    "steps_page_item_title": "Step ",
+    "steps_page_item_right": "Right: ",
+    "steps_page_item_wrong": "Wrong: ",
+    "steps_page_volume_title": "Volume control",
+
+    "user_settings_page_player":"Player: ",
+    "user_settings_page_score": "Score: ",
+    "user_settings_page_show_statistics": "Statistics",
+    "user_settings_page_exit": "Exit",
+
+    "modal_next_page_title_step": "Step ",
+    "modal_next_page_title_completed": "completed ",
+    "modal_next_page_content_right": "Right: ",
+    "modal_next_page_content_wrong": "Wrong: ",
+    "modal_next_page_btn_next": "Next step",
+    "modal_next_page_btn_repeat": "Try again",
+
+    "modal_exit_page_text": "Do you really want to leave!"
+
+    
+}

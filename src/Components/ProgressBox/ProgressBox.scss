@@ -1,0 +1,14 @@
+.context-progress_bar-cirle {
+    cursor: not-allowed;
+    width: 150px;
+    user-select: none;
+}
+@media screen and (max-width: 768px) {
+    .context-progress_bar-cirle {   
+        margin-bottom: 20px;    
+        width: 100px;               
+    }
+    
+}
+
+
